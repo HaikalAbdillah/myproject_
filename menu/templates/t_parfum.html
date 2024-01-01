@@ -1,0 +1,27 @@
+{% comment %} {% extends "index.html" %} {% endcomment %}
+{% load static %}
+{% block content %}
+<h1> H.P</h1>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            
+            {% if pesan %}
+                <div class="alert-success">{{ pesan }}</div>
+            {% endif %}
+                
+            
+            <form action="/t_parfum/" method="post">
+                {% csrf_token %}
+
+                {{ form.as_p}}
+
+                <button class="btn btn-primary">Tambah</button>
+
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock content %}
+

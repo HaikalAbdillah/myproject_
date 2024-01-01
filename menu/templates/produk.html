@@ -1,11 +1,33 @@
 {% comment %} {% extends "index.html" %} {% endcomment %}
 
 {% block content %}
-    <h2>Daftar Menu</h2>
-
-    
-    {% for produk in produks %}
-        <li>{{ produk.namaProduk }}</li>
-    {% endfor %}
-        {{ harga }}
+<h2> daftar menu</h2>
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <table class="table-border table-striped">
+                <thead>
+                    <tr>
+                        <th>namaProduk</th>
+                        <th>Harga</th>
+                        <th>Alco</th>
+                        <th>PerML</th>
+                        <th>Kategori_id</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for produk in produks %}
+                        <tr>
+                            <td>{{ produk.namaProduk }}</td>
+                            <td>{{ produk.harga }}</td>
+                            <td>{{ produk.alco }}</td>
+                            <td>{{ produk.perML }}</td>
+                            <td>{{ produk.kategori_id }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
 {% endblock content %}
