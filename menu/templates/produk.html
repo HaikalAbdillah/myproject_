@@ -1,4 +1,9 @@
-{% comment %} {% extends "index.html" %} {% endcomment %}
+
+{% load static %}
+
+{% comment %} <link href="{% static 'assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+<link href="{% static 'assets/vendor/bootstrap-icons/bootstrap-icons.css' %}" rel="stylesheet"> {% endcomment %}
+<link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
 
 {% block content %}
 <h2> daftar menu</h2>
@@ -13,16 +18,41 @@
                         <th>Alco</th>
                         <th>PerML</th>
                         <th>Kategori_id</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
                     {% for produk in produks %}
                         <tr>
-                            <td>{{ produk.namaProduk }}</td>
+                            <td>
+                                <a href="{% url 'ubp'  produk.id %}">{{ produk.namaProduk }}</a>
+                            </td>
                             <td>{{ produk.harga }}</td>
                             <td>{{ produk.alco }}</td>
                             <td>{{ produk.perML }}</td>
                             <td>{{ produk.kategori_id }}</td>
+                            <td>
+                                <button data-toggle="modal" data-target="#hapus-{{ produk.id }}" class btn btn-denger>hapus</button>
+                            </td>
+                            <div class="modal" id="hapus-{{ produk.id }}">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                        <div class="modal-title">
+                                            <h3>hapus</h3>
+                                        </div>
+                                    </div>
+                                    <div class="modal-body">
+                                      ...<strong>{{ produk.id | upper }}</strong>?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <a href="{% url 'hapus_p' produk.id %}" class="btn btn-danger">hapus</a>
+                                      <button class="btn btn-drak" data-bs-dismiss="modal">no</button>
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
                         </tr>
                     {% endfor %}
                 </tbody>
@@ -31,3 +61,5 @@
     </div>
 </div>
 {% endblock content %}
+<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/js/main.js"></script>

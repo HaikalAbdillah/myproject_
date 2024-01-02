@@ -16,10 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import include, path
-from menu.views import t_parfum
+from menu.views import t_parfum, ubp, hapus_p
 
 urlpatterns = [
     path('', include('menu.urls')),
     path('admin/', admin.site.urls),
-    path('t_parfum/', t_parfum)
+    path('t_parfum/', t_parfum),
+    path('ubp/ubah/<int:id_produk>', ubp, name="ubp"),
+    path('parfum/hapus/<int:id_produk>', hapus_p, name="hapus_p"),
 ]
