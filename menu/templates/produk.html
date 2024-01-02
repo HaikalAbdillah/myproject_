@@ -13,6 +13,7 @@
             <table class="table-border table-striped">
                 <thead>
                     <tr>
+                        <th>Cover</th>
                         <th>namaProduk</th>
                         <th>Harga</th>
                         <th>Alco</th>
@@ -24,6 +25,13 @@
                 <tbody>
                     {% for produk in produks %}
                         <tr>
+                            <td>
+                                
+                                {% if produk.cover %}
+                                    <img src="{{ produk.cover.url }}" alt="">
+                                {% endif %}
+                                    
+                            </td>
                             <td>
                                 <a href="{% url 'ubp'  produk.id %}">{{ produk.namaProduk }}</a>
                             </td>

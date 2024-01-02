@@ -4,6 +4,8 @@ from django.template import loader
 from menu.models import Produk
 from menu.forms import FormParfum
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
+from django.conf import settings
 
 def hapus_p(request, id_produk):
     parfum = Produk.objects.filter(id=id_produk)
@@ -12,22 +14,24 @@ def hapus_p(request, id_produk):
     return redirect('produk')
 
 def ubp(request, id_produk):
-    parfum = Produk.objects.get(id=id_produk)
+    ubps = Produk.objects.get(id=id_produk)
     template = 'ubp.html'
     if request.POST:
-        form = FormParfum(request.POST, instance=parfum)
+        form = FormParfum(request.POST, request.FILES, instance=ubps)
         if form.is_valid():
             form.save()
-            messages.success(request, "Data berhasil disimpan")
+            messages.success(request, "Data diubah")
             return redirect('ubp', id_produk=id_produk)
     else:
-        form = FormParfum(instance=parfum)
+        form = FormParfum(instance=ubps)
         context={
             'form': form,
-            'parfum': parfum,
+            'ubps': ubps,
         }
     return render(request, template, context)
 
+
+@login_required(login_url=settings.LOGIN_URL)
 def produk(request):
     produks = Produk.objects.all()
     context={
@@ -42,9 +46,10 @@ def home(request):
     return HttpResponse(home.render())
 
 
+@login_required(login_url=settings.LOGIN_URL)
 def t_parfum(request):
     if request.POST:
-        form = FormParfum(request.POST)
+        form = FormParfum(request.POST, request.FILES)
         if form.is_valid():
             form.save()
             form = FormParfum()

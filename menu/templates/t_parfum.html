@@ -12,7 +12,7 @@
             {% endif %}
                 
             
-            <form action="/t_parfum/" method="post">
+            <form action="/t_parfum/" method="post" enctype="multipart/form-data">
                 {% csrf_token %}
 
                 {{ form.as_p}}
